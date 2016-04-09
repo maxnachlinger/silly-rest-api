@@ -1,0 +1,26 @@
+{
+  "name": "widgets-server",
+  "version": "0.0.1",
+  "description": "Simple CRUD Example Server",
+  "author": "Max Nachlinger",
+  "scripts": {
+    "start": "node app.js",
+    "test": "standard && NODE_ENV=test mocha ./tests -t 10000 -R tap --recursive"
+  },
+  "dependencies": {
+    "async": "^2.0.0-rc.3",
+    "body-parser": "^1.15.0",
+    "boom": "^3.1.2",
+    "express": "^4.13.4",
+    "generic-pool": "^2.4.2",
+    "joi": "^8.0.5",
+    "level": "^1.4.0",
+    "level-sublevel": "^6.5.4",
+    "lodash": "^4.9.0",
+    "multilevel": "^7.3.0"
+  },
+  "devDependencies": {
+    "standard": "^6.0.8"
+  },
+  "license": "ISC"
+}
