@@ -9,9 +9,9 @@ npm i
 node ./localDev/setupDb.js
 ```
 
-Some fund commands:
+Some fun commands:
 ```shell
 npm start
-
 npm test
 ```
+etc
