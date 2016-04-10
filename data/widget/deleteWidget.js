@@ -7,15 +7,11 @@ const deleteWidget = (conn, id, cb) => async.parallel([
   pCb => conn.widgets.del(id, pCb)
 ], cb)
 
-module.exports = (id, cb) => {
-  id = id.toString()
+module.exports = (id, cb) => db.acquire((err, conn) => {
+  if (err) { return cb(err) }
 
-  return db.acquire((err, conn) => {
-    if (err) { return cb(err) }
-
-    return deleteWidget(conn, id, (err) => {
-      db.release(conn)
-      return cb(err)
-    })
+  return deleteWidget(conn, id, (err) => {
+    db.release(conn)
+    return cb(err)
   })
-}
+})

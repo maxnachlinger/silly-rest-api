@@ -22,7 +22,6 @@ function setupPool () {
 
       dbClient.widgets = db.sublevel('widgets')
       dbClient.widgetSummaries = db.sublevel('widget_summaries')
-      dbClient.sequences = db.sublevel('widget_sequences')
 
       return callback(null, dbClient)
     },
@@ -51,14 +50,9 @@ module.exports.start = (cb) => {
   })
 }
 
-// helper method to cut down on
-module.exports.releaseCb = (conn, cb) => (err, result) => {
-  exports.release(conn)
-  return cb(err, result)
-}
-
 // for tests
-module.exports.close = (cb) => {
-  pool.drain(
-    () => pool.destroyAllNow(() => server.close(cb)))
-}
+module.exports.close = (cb) => pool.drain(
+    () => pool.destroyAllNow(
+      () => server.close(cb)
+    )
+)
