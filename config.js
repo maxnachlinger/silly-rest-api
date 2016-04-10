@@ -3,7 +3,7 @@ const path = require('path')
 
 module.exports = {
   api: {
-    port: 8080
+    port: 8000
   },
   db: {
     port: 3000,

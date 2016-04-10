@@ -5,8 +5,8 @@ const config = require('./config')
 const db = require('./data/db')
 
 async.parallel([
-  server.init,
-  db.init
+  server.start,
+  db.start
 ], (err) => {
   if (err) {
     console.error(err.stack || err)

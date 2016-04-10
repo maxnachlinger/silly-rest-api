@@ -1,7 +1,9 @@
 'use strict'
+const rimraf = require('rimraf')
 const _ = require('lodash')
 const async = require('async')
-const db = require('./../data/db')
+const db = require('../data/db')
+const config = require('../config')
 
 function fill (conn, cb) {
   const widgets = Array.from(new Array(1000), (x, idx) => idx)
@@ -22,7 +24,7 @@ function fill (conn, cb) {
     })
 
   const addSummaries = sCb => conn.widgetSummaries.batch(widgets.map((w, idx) => {
-    return { type: 'put', key: idx, value: JSON.stringify(_.omit(w, 'description')) }
+    return { type: 'put', key: idx, value: JSON.stringify(_.omit(w, 'description', 'metadata')) }
   }), sCb)
 
   const addWidgets = sCb => conn.widgets.batch(widgets.map((w, idx) => {
@@ -37,12 +39,13 @@ function fill (conn, cb) {
     addIdSequence
   ], err => {
     db.release(conn)
-    cb()
+    cb(err)
   })
 }
 
 async.waterfall([
-  (cb) => db.init(cb),
+  (cb) => rimraf(config.db.path + '/**', cb),
+  (cb) => db.start(cb),
   (cb) => db.acquire(cb),
   (connection, cb) => fill(connection, cb)
 ], err => {

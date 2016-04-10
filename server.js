@@ -16,4 +16,4 @@ app.use((err, req, res, next) => {
 
 app.use('/widget', widgetRoutes)
 
-module.exports.init = (cb) => app.listen(config.api.port, cb)
+module.exports.start = (cb) => app.listen(config.api.port, cb)
