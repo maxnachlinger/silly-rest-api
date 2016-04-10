@@ -1,6 +1,6 @@
 # A Silly REST API
 
-A silly REST API, no really, it is
+A quick REST API teaching tool.
 
 First:
 ```
