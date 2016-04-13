@@ -5,7 +5,7 @@ const createWidget = require('../../data/createWidget')
 
 test('Setup Db', (t) => testDb.setup(t.end))
 
-test('creates a widget', (t) => {
+test('Creates a widget', (t) => {
   const testWidget = {
     name: 'test-widget name',
     description: 'test-widget description',
