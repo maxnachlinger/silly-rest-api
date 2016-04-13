@@ -1,6 +1,6 @@
 'use strict'
 const async = require('async')
-const server = require('./server')
+const server = require('./rest/server')
 const config = require('./config')
 const db = require('./data/db')
 

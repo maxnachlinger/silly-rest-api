@@ -1,8 +1,8 @@
 'use strict'
 const app = require('express')()
 const bodyParser = require('body-parser')
-const config = require('./config')
-const widgetRoutes = require('./widget')
+const config = require('./../config')
+const widgetRoutes = require('./routes')
 
 app.use(bodyParser.json())
 
@@ -14,6 +14,6 @@ app.use((err, req, res, next) => {
   res.status(500).send()
 })
 
-app.use('/widget', widgetRoutes)
+app.use(widgetRoutes)
 
 module.exports.start = (cb) => app.listen(config.api.port, cb)

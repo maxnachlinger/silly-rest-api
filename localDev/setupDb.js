@@ -37,7 +37,7 @@ async.waterfall([
   (cb) => db.acquire(cb),
   (connection, cb) => fill(connection, cb)
 ], (err) => {
-  db.close()
+  db.stop()
   if (err) {
     console.error('Could not acquire connection from pool', err.stack || err)
     return process.exit(1)

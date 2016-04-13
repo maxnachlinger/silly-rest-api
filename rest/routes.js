@@ -1,7 +1,7 @@
 'use strict'
 const express = require('express')
 const Joi = require('joi')
-const validator = require('../middleware/validator')
+const validator = require('./middleware/validator')
 const router = express.Router()
 
 const idRequired = {
@@ -17,30 +17,30 @@ const nameDescriptionRequired = {
 }
 
 router.get(
-  '/summary',
+  '/widget/summary',
   require('./getSummaries')
 )
 
 router.get(
-  '/:id',
+  '/widget/:id',
   validator(idRequired),
   require('./getWidget')
 )
 
 router.post(
-  '/',
+  '/widget',
   validator(nameDescriptionRequired),
   require('./createWidget')
 )
 
 router.delete(
-  '/:id',
+  '/widget/:id',
   validator(idRequired),
   require('./deleteWidget')
 )
 
 router.put(
-  '/:id',
+  '/widget/:id',
   validator(Object.assign(idRequired, nameDescriptionRequired)),
   require('./updateWidget')
 )

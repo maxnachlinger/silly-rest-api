@@ -9,7 +9,7 @@ module.exports = (cb) => db.acquire((err, conn) => {
   valueStream.once('error', () => db.release(conn))
   valueStream.once('end', () => db.release(conn))
 
-  valueStream.pipe(new stream.Transform({
+  const ret = valueStream.pipe(new stream.Transform({
     transform: function (chunk, encoding, next) {
       chunk = JSON.parse(chunk)
 
@@ -22,5 +22,5 @@ module.exports = (cb) => db.acquire((err, conn) => {
     }
   }))
 
-  return cb(null, valueStream)
+  return cb(null, ret)
 })
