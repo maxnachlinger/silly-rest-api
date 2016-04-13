@@ -3,32 +3,31 @@ const _ = require('lodash')
 const Joi = require('joi')
 const Boom = require('boom')
 
+const handleError = (err, next) => {
+  if (process.env.NODE_ENV === 'production') {
+    return next(Boom.badRequest())
+  }
+  return next(Boom.badRequest(err.message, err))
+}
+
 module.exports = (schema, options) => {
+  options = options || { convert: true, allowUnknown: true, abortEarly: false }
   const keys = Object.keys(schema)
 
-  options = options || { convert: true, allowUnknown: true, abortEarly: false }
+  return (req, res, next) => {
+    return Joi.validate(
+      _.pick(req, keys),
+      schema,
+      options,
+      (err, result) => {
+        if (err) { return handleError(err, next) }
 
-  return (req, res, next) => Joi.validate(
-    _.pick(req, keys),
-    schema,
-    options,
-    (err, result) => {
-      if (err) {
-        // give helpful errors in dev mode
-        if (process.env.NODE_ENV === 'production') {
-          return next(Boom.badRequest())
+        // write back converted values
+        if (options.convert) {
+          _.merge(req, result)
         }
 
-        return next(Boom.badRequest(err.message, err))
-      }
-
-      // write back converted values
-      keys.forEach((key) => {
-        if (result[ key ] && req[ key ]) {
-          req[ key ] = result[ key ]
-        }
+        return next()
       })
-
-      return next()
-    })
+  }
 }

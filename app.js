@@ -12,5 +12,5 @@ async.parallel([
     console.error(err.stack || err)
     process.exit(1)
   }
-  console.log('Server listening on port: ', config.api.port)
+  console.log(`Server listening on port: ${config.api.port}`)
 })

@@ -2,7 +2,7 @@
 const app = require('express')()
 const bodyParser = require('body-parser')
 const config = require('./../config')
-const widgetRoutes = require('./routes')
+const widgetRoutes = require('./widgetRoutes')
 
 app.use(bodyParser.json())
 

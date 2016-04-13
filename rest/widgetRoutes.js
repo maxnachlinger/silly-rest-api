@@ -16,8 +16,20 @@ const nameDescriptionRequired = {
   }
 }
 
+router.post(
+  '/widget',
+  validator(nameDescriptionRequired),
+  require('./createWidget')
+)
+
+router.put(
+  '/widget/:id',
+  validator(Object.assign({}, idRequired, nameDescriptionRequired)),
+  require('./updateWidget')
+)
+
 router.get(
-  '/widget/summary',
+  '/widget',
   require('./getSummaries')
 )
 
@@ -27,22 +39,10 @@ router.get(
   require('./getWidget')
 )
 
-router.post(
-  '/widget',
-  validator(nameDescriptionRequired),
-  require('./createWidget')
-)
-
 router.delete(
   '/widget/:id',
   validator(idRequired),
   require('./deleteWidget')
-)
-
-router.put(
-  '/widget/:id',
-  validator(Object.assign(idRequired, nameDescriptionRequired)),
-  require('./updateWidget')
 )
 
 module.exports = router
