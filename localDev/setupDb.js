@@ -1,6 +1,5 @@
 'use strict'
 const rimraf = require('rimraf')
-const _ = require('lodash')
 const async = require('async')
 const uuid = require('node-uuid')
 const db = require('../data/db')
@@ -8,7 +7,7 @@ const config = require('../config')
 
 function fill (conn, cb) {
   const widgets = Array.from(new Array(1000), (x, idx) => idx)
-    .map(i => {
+    .map((i) => {
       return {
         id: uuid.v4(),
         name: 'Test Widget: ' + i,
@@ -24,18 +23,9 @@ function fill (conn, cb) {
       }
     })
 
-  const addSummaries = sCb => conn.widgetSummaries.batch(widgets.map((w, idx) => {
-    return { type: 'put', key: idx, value: JSON.stringify(_.omit(w, 'description', 'metadata')) }
-  }), sCb)
-
-  const addWidgets = sCb => conn.widgets.batch(widgets.map((w, idx) => {
+  conn.batch(widgets.map((w, idx) => {
     return { type: 'put', key: idx, value: JSON.stringify(w) }
-  }), sCb)
-
-  return async.series([
-    addSummaries,
-    addWidgets
-  ], err => {
+  }), (err) => {
     db.release(conn)
     cb(err)
   })
@@ -46,7 +36,7 @@ async.waterfall([
   (cb) => db.start(cb),
   (cb) => db.acquire(cb),
   (connection, cb) => fill(connection, cb)
-], err => {
+], (err) => {
   db.close()
   if (err) {
     console.error('Could not acquire connection from pool', err.stack || err)

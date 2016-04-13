@@ -1,10 +1,10 @@
 'use strict'
-const db = require('../db')
+const db = require('./db')
 
 module.exports = (id, cb) => db.acquire((err, conn) => {
   if (err) { return cb(err) }
 
-  return conn.widgets.get(id.toString(), (err, result) => {
+  return conn.get(id.toString(), (err, result) => {
     db.release(conn)
     if (err) {
       if (err.type === 'NotFoundError') {

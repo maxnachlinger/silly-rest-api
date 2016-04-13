@@ -1,9 +1,7 @@
 'use strict'
-const async = require('async')
 const multilevel = require('multilevel')
 const net = require('net')
 const level = require('level')
-const levelSubLevel = require('level-sublevel')
 const Pool = require('generic-pool').Pool
 const config = require('../config')
 
@@ -15,15 +13,10 @@ function setupPool () {
   pool = new Pool({
     name: 'multilevel-pool',
     create: (callback) => {
-      const dbClient = multilevel.client()
-
+      const client = multilevel.client()
       var connection = net.connect(config.db.port)
-      connection.pipe(dbClient.createRpcStream()).pipe(connection)
-
-      dbClient.widgets = db.sublevel('widgets')
-      dbClient.widgetSummaries = db.sublevel('widget_summaries')
-
-      return callback(null, dbClient)
+      connection.pipe(client.createRpcStream()).pipe(connection)
+      return callback(null, client)
     },
     destroy: (client) => client.close(),
     min: 2,
@@ -36,9 +29,9 @@ function setupPool () {
 }
 
 module.exports.start = (cb) => {
-  db = levelSubLevel(level(config.db.path))
+  db = level(config.db.path)
 
-  server = net.createServer(connection =>
+  server = net.createServer((connection) =>
     connection.pipe(multilevel.server(db)).pipe(connection)
   )
 
@@ -51,8 +44,8 @@ module.exports.start = (cb) => {
 }
 
 // for tests
-module.exports.close = (cb) => pool.drain(
-    () => pool.destroyAllNow(
-      () => server.close(cb)
-    )
+module.exports.stop = (cb) => pool.drain(
+  () => pool.destroyAllNow(
+    () => server.close(cb)
+  )
 )

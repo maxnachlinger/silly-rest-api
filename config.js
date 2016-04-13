@@ -7,6 +7,6 @@ module.exports = {
   },
   db: {
     port: 3000,
-    path: path.join(__dirname, '/data/widget-db')
+    path: path.join(__dirname, '/data/.db')
   }
 }

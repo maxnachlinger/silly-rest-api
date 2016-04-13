@@ -23,7 +23,7 @@ module.exports = (schema, options) => {
       }
 
       // write back converted values
-      keys.forEach(key => {
+      keys.forEach((key) => {
         if (result[ key ] && req[ key ]) {
           req[ key ] = result[ key ]
         }

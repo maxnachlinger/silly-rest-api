@@ -5,7 +5,7 @@
   "author": "Max Nachlinger",
   "scripts": {
     "start": "node app.js",
-    "test": "standard && NODE_ENV=test mocha ./tests -t 10000 -R tap --recursive"
+    "test": "./node_modules/.bin/standard && ./node_modules/.bin/tape 'tests/**/*.js'"
   },
   "dependencies": {
     "async": "^2.0.0-rc.3",
@@ -22,7 +22,10 @@
   },
   "devDependencies": {
     "rimraf": "^2.5.2",
-    "standard": "^6.0.8"
+    "proxyquire": "^1.7.4",
+    "sinon": "^1.17.3",
+    "standard": "^6.0.8",
+    "tape": "^4.5.1"
   },
   "license": "ISC"
 }

@@ -1,5 +1,5 @@
 'use strict'
-const createWidget = require('../data/widget/createWidget')
+const createWidget = require('../data/createWidget')
 
 module.exports = (req, res, next) => {
   const widget = req.body
