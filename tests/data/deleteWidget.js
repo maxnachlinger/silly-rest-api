@@ -14,7 +14,8 @@ const testWidget = {
 }
 
 test('Setup Db, creates a widget', (t) => testDb.setup(() => createWidget(testWidget, (err, id) => {
-  testWidget.id = id;
+  t.notOk(err)
+  testWidget.id = id
   t.end()
 })))
 

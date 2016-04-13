@@ -1,4 +1,5 @@
 'use strict'
+const async = require('async')
 const multilevel = require('multilevel')
 const net = require('net')
 const level = require('level')
@@ -11,10 +12,10 @@ let pool = {}
 
 function setupPool () {
   pool = new Pool({
-    name: 'multilevel-pool',
+    name: 'db-pool',
     create: (callback) => {
       const client = multilevel.client()
-      var connection = net.connect(config.db.port)
+      const connection = net.connect(config.db.port)
       connection.pipe(client.createRpcStream()).pipe(connection)
       return callback(null, client)
     },
@@ -38,14 +39,14 @@ module.exports.start = (cb) => {
   server.listen(config.db.port, (err) => {
     if (err) { return cb(err) }
     setupPool()
-    console.log('db listening on port:', config.db.port)
     cb()
   })
 }
 
 // for tests
-module.exports.stop = (cb) => pool.drain(
-  () => pool.destroyAllNow(
-    () => server.close(cb)
-  )
-)
+module.exports.stop = (cb) => async.series([
+  pool.drain.bind(pool),
+  pool.destroyAllNow.bind(pool),
+  server.close.bind(server),
+  db.close.bind(db)
+], cb)
