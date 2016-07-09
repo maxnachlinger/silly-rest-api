@@ -23,8 +23,8 @@ function fill (conn, cb) {
       }
     })
 
-  conn.batch(widgets.map((w, idx) => {
-    return { type: 'put', key: idx, value: JSON.stringify(w) }
+  conn.batch(widgets.map((w) => {
+    return { type: 'put', key: w.id, value: JSON.stringify(w) }
   }), (err) => {
     db.release(conn)
     cb(err)

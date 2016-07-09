@@ -2,7 +2,7 @@
 const stream = require('stream')
 const db = require('./db')
 
-const summaryTransform = new stream.Transform({
+const summaryTransform = () => new stream.Transform({
   transform (chunk, encoding, next) {
     chunk = JSON.parse(chunk)
     next(null, JSON.stringify({
@@ -19,5 +19,6 @@ module.exports = (cb) => db.acquire((err, conn) => {
   valueStream.once('error', () => db.release(conn))
   valueStream.once('end', () => db.release(conn))
 
-  return cb(null, valueStream.pipe(summaryTransform))
+  //return cb(null, valueStream.pipe(summaryTransform()))
+  return cb(null, valueStream)
 })
