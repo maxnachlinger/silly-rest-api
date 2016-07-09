@@ -9,6 +9,6 @@ module.exports = (widget, cb) => db.acquire((err, conn) => {
 
   return conn.put(widget.id, JSON.stringify(widget), (err) => {
     db.release(conn)
-    cb(err, { id: widget.id })
+    return cb(err, { id: widget.id })
   })
 })

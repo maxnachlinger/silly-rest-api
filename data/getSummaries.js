@@ -3,15 +3,12 @@ const stream = require('stream')
 const db = require('./db')
 
 const summaryTransform = new stream.Transform({
-  transform: function (chunk, encoding, next) {
+  transform (chunk, encoding, next) {
     chunk = JSON.parse(chunk)
-
-    this.push(JSON.stringify({
+    next(null, JSON.stringify({
       id: chunk.id,
       name: chunk.name
     }))
-
-    next()
   }
 })
 

@@ -8,24 +8,24 @@
     "test": "./node_modules/.bin/standard && ./node_modules/.bin/tape 'tests/**/*.js'"
   },
   "dependencies": {
-    "async": "^2.0.0-rc.3",
-    "body-parser": "^1.15.0",
-    "boom": "^3.1.2",
-    "express": "^4.13.4",
+    "async": "^2.0.0-rc.6",
+    "body-parser": "^1.15.2",
+    "boom": "^3.2.2",
+    "express": "^4.14.0",
     "generic-pool": "^2.4.2",
-    "joi": "^8.0.5",
+    "joi": "^8.4.2",
     "level": "^1.4.0",
     "level-sublevel": "^6.5.4",
-    "lodash": "^4.9.0",
+    "lodash": "^4.13.1",
     "multilevel": "^7.3.0",
     "node-uuid": "^1.4.7"
   },
   "devDependencies": {
-    "rimraf": "^2.5.2",
-    "proxyquire": "^1.7.4",
-    "sinon": "^1.17.3",
+    "proxyquire": "^1.7.10",
+    "rimraf": "^2.5.3",
+    "sinon": "^1.17.4",
     "standard": "^6.0.8",
-    "tape": "^4.5.1"
+    "tape": "^4.6.0"
   },
   "license": "ISC"
 }

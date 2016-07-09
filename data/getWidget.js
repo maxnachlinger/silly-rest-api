@@ -13,6 +13,6 @@ module.exports = (id, cb) => db.acquire((err, conn) => {
       return cb(err)
     }
 
-    cb(null, result)
+    return cb(null, result)
   })
 })
