@@ -6,12 +6,11 @@ const config = require('./../config')
 const widgetRoutes = require('./widgetRoutes')
 const logger = require('./helpers/logger')
 
-app.use(expressLogger({logger: logger}))
-app.use(expressLogger.errorLogger({logger: logger}))
+app.use(expressLogger({logger}))
+app.use(expressLogger.errorLogger({logger}))
 app.use(bodyParser.json())
 
 app.use((err, req, res, next) => {
-  console.error(err.stack || err)
   if (res.headersSent) {
     return next(err)
   }

@@ -19,6 +19,5 @@ module.exports = (cb) => db.acquire((err, conn) => {
   valueStream.once('error', () => db.release(conn))
   valueStream.once('end', () => db.release(conn))
 
-  //return cb(null, valueStream.pipe(summaryTransform()))
-  return cb(null, valueStream)
+  return cb(null, valueStream.pipe(summaryTransform()))
 })
