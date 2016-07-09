@@ -29,7 +29,7 @@ function setupPool () {
   module.exports.release = pool.release.bind(pool)
 }
 
-module.exports.start = (cb) => {
+module.exports.start = (callback) => {
   db = level(config.db.path)
 
   server = net.createServer((connection) =>
@@ -37,16 +37,16 @@ module.exports.start = (cb) => {
   )
 
   server.listen(config.db.port, (err) => {
-    if (err) { return cb(err) }
+    if (err) { return callback(err) }
     setupPool()
-    cb()
+    callback()
   })
 }
 
 // for tests
-module.exports.stop = (cb) => async.series([
+module.exports.stop = (callback) => async.series([
   pool.drain.bind(pool),
   pool.destroyAllNow.bind(pool),
   server.close.bind(server),
   db.close.bind(db)
-], cb)
+], callback)

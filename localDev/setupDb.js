@@ -5,7 +5,7 @@ const uuid = require('node-uuid')
 const db = require('../data/db')
 const config = require('../config')
 
-function fill (conn, cb) {
+function fill (conn, callback) {
   const widgets = Array.from(new Array(1000), (x, idx) => idx)
     .map((i) => {
       return {
@@ -23,19 +23,19 @@ function fill (conn, cb) {
       }
     })
 
-  conn.batch(widgets.map((w) => {
+  return conn.batch(widgets.map((w) => {
     return { type: 'put', key: w.id, value: JSON.stringify(w) }
   }), (err) => {
     db.release(conn)
-    cb(err)
+    return callback(err)
   })
 }
 
 async.waterfall([
-  (cb) => rimraf(config.db.path + '/**', cb),
-  (cb) => db.start(cb),
-  (cb) => db.acquire(cb),
-  (connection, cb) => fill(connection, cb)
+  (wCallback) => rimraf(config.db.path + '/**', wCallback),
+  (wCallback) => db.start(wCallback),
+  (wCallback) => db.acquire(wCallback),
+  (connection, wCallback) => fill(connection, wCallback)
 ], (err) => {
   db.stop()
   if (err) {

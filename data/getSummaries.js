@@ -12,12 +12,12 @@ const summaryTransform = () => new stream.Transform({
   }
 })
 
-module.exports = (cb) => db.acquire((err, conn) => {
-  if (err) { return cb(err) }
+module.exports = (callback) => db.acquire((err, conn) => {
+  if (err) { return callback(err) }
 
   const valueStream = conn.createValueStream()
   valueStream.once('error', () => db.release(conn))
   valueStream.once('end', () => db.release(conn))
 
-  return cb(null, valueStream.pipe(summaryTransform()))
+  return callback(null, valueStream.pipe(summaryTransform()))
 })

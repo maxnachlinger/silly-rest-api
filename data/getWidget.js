@@ -1,18 +1,18 @@
 'use strict'
 const db = require('./db')
 
-module.exports = (id, cb) => db.acquire((err, conn) => {
-  if (err) { return cb(err) }
+module.exports = (id, callback) => db.acquire((err, conn) => {
+  if (err) { return callback(err) }
 
   return conn.get(id.toString(), (err, result) => {
     db.release(conn)
     if (err) {
       if (err.type === 'NotFoundError') {
-        return cb()
+        return callback()
       }
-      return cb(err)
+      return callback(err)
     }
 
-    return cb(null, result)
+    return callback(null, JSON.parse(result))
   })
 })

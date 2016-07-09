@@ -1,11 +1,11 @@
 'use strict'
 const db = require('./db')
 
-module.exports = (id, cb) => db.acquire((err, conn) => {
-  if (err) { return cb(err) }
+module.exports = (id, callback) => db.acquire((err, conn) => {
+  if (err) { return callback(err) }
 
   return conn.del(id, (err) => {
     db.release(conn)
-    return cb(err)
+    return callback(err)
   })
 })

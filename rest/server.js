@@ -19,4 +19,4 @@ app.use((err, req, res, next) => {
 
 app.use(widgetRoutes)
 
-module.exports.start = (cb) => app.listen(config.api.port, cb)
+module.exports.start = (callback) => app.listen(config.api.port, callback)
