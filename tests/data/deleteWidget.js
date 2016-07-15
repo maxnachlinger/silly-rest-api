@@ -1,8 +1,8 @@
 'use strict'
 const testDb = require('../testDb')
 const test = require('tape')
-const createWidget = require('.././createWidget')
-const deleteWidget = require('.././deleteWidget')
+const createWidget = require('../../data/createWidget')
+const deleteWidget = require('../../data/deleteWidget')
 
 const testWidget = {
   name: 'test-widget name',

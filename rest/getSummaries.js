@@ -1,5 +1,5 @@
 'use strict'
-const getSummaries = require('./getSummaries')
+const getSummaries = require('../data/getSummaries')
 
 module.exports = (req, res, next) => {
   return getSummaries((err, stream) => {

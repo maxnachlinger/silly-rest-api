@@ -1,5 +1,5 @@
 'use strict'
-const updateWidget = require('./updateWidget')
+const updateWidget = require('../data/updateWidget')
 
 module.exports = (req, res, next) => {
   const widget = req.body
