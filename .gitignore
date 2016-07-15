@@ -3,3 +3,5 @@ node_modules
 .idea
 *.iml
 **/.db
+*.DS_Store
+level-session-store/
