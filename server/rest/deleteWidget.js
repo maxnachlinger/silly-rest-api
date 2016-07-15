@@ -1,5 +1,5 @@
 'use strict'
-const deleteWidget = require('../data/deleteWidget')
+const deleteWidget = require('./deleteWidget')
 
 module.exports = (req, res, next) => {
   const widgetId = req.params.id

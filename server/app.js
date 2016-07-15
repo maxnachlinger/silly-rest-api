@@ -3,6 +3,7 @@ const async = require('async')
 const server = require('./rest/server')
 const config = require('./config')
 const db = require('./data/db')
+const logger = require('./rest/helpers/logger')
 
 async.parallel([
   server.start,
@@ -12,5 +13,5 @@ async.parallel([
     console.error(err.stack || err)
     process.exit(1)
   }
-  console.log(`Server listening on port: ${config.api.port}`)
+  logger.info(`Server listening on port: ${config.api.port}`)
 })

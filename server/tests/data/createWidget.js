@@ -1,7 +1,7 @@
 'use strict'
 const testDb = require('../testDb')
 const test = require('tape')
-const createWidget = require('../../data/createWidget')
+const createWidget = require('.././createWidget')
 
 test('Setup Db', (t) => testDb.setup(t.end))
 

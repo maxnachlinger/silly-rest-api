@@ -1,5 +1,5 @@
 'use strict'
-const getWidget = require('../data/getWidget')
+const getWidget = require('./getWidget')
 
 module.exports = (req, res, next) => {
   const widgetId = req.params.id
