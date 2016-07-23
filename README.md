@@ -18,6 +18,5 @@ etc
 
 
 # TODO
-- add csurf
 - add rate limiting
 - add some OAuth2

@@ -5,7 +5,7 @@ const config = require('./config')
 const db = require('./data/db')
 const logger = require('./rest/helpers/logger')
 
-function start() {
+function start () {
   async.parallel([
     server.start,
     db.start
@@ -17,7 +17,7 @@ function start() {
     logger.info(`Server listening on port: ${config.api.port}`)
   })
 }
-start();
+start()
 
 process.on('uncaughtException', (err) => {
   console.error(err.stack)

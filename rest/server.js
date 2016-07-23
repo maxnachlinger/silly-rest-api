@@ -9,7 +9,7 @@ const LevelStore = require('level-session-store')(session)
 const config = require('../config')
 const widgetRoutes = require('./widgetRoutes')
 const logger = require('./helpers/logger')
-const env = (process.env.NODE_ENV || 'development').toLowerCase();
+const env = (process.env.NODE_ENV || 'development').toLowerCase()
 
 app.use(expressLogger({logger}))
 app.use(expressLogger.errorLogger({logger}))
