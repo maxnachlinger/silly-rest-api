@@ -10,7 +10,7 @@
   "dependencies": {
     "async": "^2.0.0-rc.6",
     "body-parser": "^1.15.2",
-    "boom": "^3.2.2",
+    "boom": "^4.1.0",
     "bunyan": "^1.8.1",
     "compression": "^1.6.2",
     "express": "^4.14.0",
@@ -18,7 +18,7 @@
     "express-session": "^1.14.0",
     "generic-pool": "^2.4.2",
     "helmet": "^2.1.1",
-    "joi": "^8.4.2",
+    "joi": "^9.1.0",
     "level": "^1.4.0",
     "level-session-store": "^2.0.1",
     "level-sublevel": "^6.5.4",
@@ -30,7 +30,7 @@
     "proxyquire": "^1.7.10",
     "rimraf": "^2.5.3",
     "sinon": "^1.17.4",
-    "standard": "^6.0.8",
+    "standard": "^8.3.0",
     "tape": "^4.6.0"
   },
   "license": "ISC"
