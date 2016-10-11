@@ -30,7 +30,7 @@
     "proxyquire": "^1.7.10",
     "rimraf": "^2.5.3",
     "sinon": "^1.17.4",
-    "standard": "^8.3.0",
+    "standard": "^8.4.0",
     "tape": "^4.6.0"
   },
   "license": "ISC"
