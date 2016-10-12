@@ -21,7 +21,7 @@
     "joi": "^9.1.0",
     "level": "^1.4.0",
     "level-session-store": "^2.0.1",
-    "level-sublevel": "^6.5.4",
+    "level-sublevel": "^6.6.1",
     "lodash": "^4.16.4",
     "multilevel": "^7.3.0",
     "node-uuid": "^1.4.7"
