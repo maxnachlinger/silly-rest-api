@@ -8,7 +8,7 @@
     "test": "./node_modules/.bin/standard && ./node_modules/.bin/tape 'tests/**/*.js'"
   },
   "dependencies": {
-    "async": "^2.1.1",
+    "async": "^2.1.2",
     "body-parser": "^1.15.2",
     "boom": "^4.2.0",
     "bunyan": "^1.8.1",
