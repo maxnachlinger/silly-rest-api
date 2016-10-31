@@ -22,7 +22,7 @@
     "level": "^1.5.0",
     "level-session-store": "^2.0.1",
     "level-sublevel": "^6.6.1",
-    "lodash": "^4.16.4",
+    "lodash": "^4.16.5",
     "multilevel": "^7.3.0",
     "node-uuid": "^1.4.7"
   },
