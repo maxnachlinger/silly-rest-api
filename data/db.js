@@ -32,7 +32,8 @@ function setupPool () {
 module.exports.start = (callback) => {
   db = level(config.db.path)
 
-  server = net.createServer((connection) => connection.pipe(multilevel.server(db)).pipe(connection)
+  server = net.createServer((connection) =>
+    connection.pipe(multilevel.server(db)).pipe(connection)
   )
 
   server.listen(config.db.port, (err) => {
