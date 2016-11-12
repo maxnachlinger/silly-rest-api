@@ -1,9 +1,8 @@
 'use strict'
-const async = require('async')
 const multilevel = require('multilevel')
 const net = require('net')
 const level = require('level')
-const Pool = require('generic-pool').Pool
+const genericPool = require('generic-pool')
 const config = require('../config')
 
 let server = {}
@@ -11,19 +10,29 @@ let db = {}
 let pool = {}
 
 function setupPool () {
-  pool = new Pool({
-    name: 'db-pool',
-    create: (callback) => {
-      const client = multilevel.client()
-      const connection = net.connect(config.db.port)
-      connection.pipe(client.createRpcStream()).pipe(connection)
-      return callback(null, client)
+  const factory = {
+    create: () => {
+      return new Promise((resolve) => {
+        const client = multilevel.client()
+        const connection = net.connect(config.db.port)
+        connection.pipe(client.createRpcStream()).pipe(connection)
+        resolve(client)
+      })
     },
-    destroy: (client) => client.close(),
-    min: 2,
-    max: 10,
-    idleTimeoutMillis: 30 * 1000
-  })
+    destroy: (client) => {
+      return new Promise((resolve) => {
+        client.close()
+        resolve()
+      })
+    }
+  }
+
+  const opts = {
+    max: 10, // maximum size of the pool
+    min: 2 // minimum size of the pool
+  }
+
+  pool = genericPool.createPool(factory, opts)
 
   module.exports.acquire = pool.acquire.bind(pool)
   module.exports.release = pool.release.bind(pool)
@@ -44,9 +53,8 @@ module.exports.start = (callback) => {
 }
 
 // for tests
-module.exports.stop = (callback) => async.series([
-  pool.drain.bind(pool),
-  pool.destroyAllNow.bind(pool),
-  server.close.bind(server),
-  db.close.bind(db)
-], callback)
+module.exports.stop = (callback) => {
+  pool.drain()
+    .then(() => pool.clear())
+    .then(() => server.close(() => db.close(callback)))
+}

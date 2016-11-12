@@ -1,9 +1,7 @@
 'use strict'
 const db = require('./db')
 
-module.exports = (id, callback) => db.acquire((err, conn) => {
-  if (err) { return callback(err) }
-
+module.exports = (id, callback) => db.acquire().then((conn) => {
   return conn.get(id.toString(), (err, result) => {
     db.release(conn)
     if (err) {
@@ -15,4 +13,4 @@ module.exports = (id, callback) => db.acquire((err, conn) => {
 
     return callback(null, JSON.parse(result))
   })
-})
+}).catch((err) => callback(err))
