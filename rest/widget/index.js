@@ -1,7 +1,7 @@
 'use strict'
 const express = require('express')
 const Joi = require('joi')
-const validator = require('./middleware/validator')
+const validator = require('./../middleware/validator')
 const router = express.Router()
 
 const idRequired = {

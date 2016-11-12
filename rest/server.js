@@ -7,7 +7,7 @@ const compression = require('compression') // for larger APIs do this via Nginx
 const session = require('express-session')
 const LevelStore = require('level-session-store')(session)
 const config = require('../config')
-const widgetRoutes = require('./widgetRoutes')
+const widgetRoutes = require('./widget')
 const logger = require('./helpers/logger')
 const env = (process.env.NODE_ENV || 'development').toLowerCase()
 
@@ -34,6 +34,4 @@ app.use((err, req, res, next) => {
 
 app.use(widgetRoutes)
 
-module.exports.start = (callback) => {
-  app.listen(config.api.port, callback)
-}
+module.exports.start = (callback) => app.listen(config.api.port, callback)
