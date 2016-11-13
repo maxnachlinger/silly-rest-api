@@ -1,13 +1,20 @@
 'use strict'
-const getWidget = require('../../data/getWidget')
+const db = require('../helpers/db')
 
 module.exports = (req, res, next) => {
-  const widgetId = req.params.id
+  const id = req.params.id.toString()
 
-  return getWidget(widgetId, (err, widget) => {
-    if (err) { return next(err) }
-    if (!widget) { return res.status(404).send() }
+  return db.acquire().then((conn) => {
+    return conn.get(id, (err, result) => {
+      db.release(conn)
+      if (err) {
+        if (err.type === 'NotFoundError') {
+          return res.status(404).send()
+        }
+        return next(err)
+      }
 
-    return res.status(200).send(widget)
-  })
+      return res.status(200).send(result)
+    })
+  }).catch((err) => next(err))
 }

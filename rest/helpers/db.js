@@ -3,7 +3,7 @@ const multilevel = require('multilevel')
 const net = require('net')
 const level = require('level')
 const genericPool = require('generic-pool')
-const config = require('../config')
+const config = require('../../config')
 
 let server = {}
 let db = {}

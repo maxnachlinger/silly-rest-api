@@ -1,11 +1,14 @@
 'use strict'
-const deleteWidget = require('../../data/deleteWidget')
+const db = require('../helpers/db')
 
 module.exports = (req, res, next) => {
-  const widgetId = req.params.id
+  const id = req.params.id
 
-  return deleteWidget(widgetId, (err) => {
-    if (err) { return next(err) }
-    return res.status(200).send({ id: widgetId })
-  })
+  return db.acquire().then((conn) => {
+    return conn.del(id, (err) => {
+      db.release(conn)
+      if (err) { return next(err) }
+      return res.status(200).send({ id })
+    })
+  }).catch((err) => next(err))
 }

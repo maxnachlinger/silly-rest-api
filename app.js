@@ -2,7 +2,7 @@
 const async = require('async')
 const server = require('./rest/server')
 const config = require('./config')
-const db = require('./data/db')
+const db = require('./rest/helpers/db')
 const logger = require('./rest/helpers/logger')
 
 function start () {

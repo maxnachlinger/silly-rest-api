@@ -2,6 +2,6 @@ npm-debug.log*
 node_modules
 .idea
 *.iml
-**/.db
+.db/
 *.DS_Store
 level-session-store/

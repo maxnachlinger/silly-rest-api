@@ -2,7 +2,7 @@
 const rimraf = require('rimraf')
 const async = require('async')
 const uuid = require('node-uuid')
-const db = require('../data/db')
+const db = require('../rest/helpers/db')
 const config = require('../config')
 
 function fill (conn, callback) {
@@ -12,10 +12,10 @@ function fill (conn, callback) {
         id: uuid.v4(),
         name: 'Test Widget: ' + i,
         description: 'Test Widget: ' + i + ' Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed ' +
-          'do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ' +
-          'exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in ' +
-          'reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat ' +
-          'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+        'do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud ' +
+        'exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in ' +
+        'reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat ' +
+        'cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
         metadata: {
           created: new Date(),
           updated: new Date()
@@ -34,7 +34,9 @@ function fill (conn, callback) {
 async.waterfall([
   (wCallback) => rimraf(config.db.path + '/**', wCallback),
   (wCallback) => db.start(wCallback),
-  (wCallback) => db.acquire(wCallback),
+  (wCallback) => db.acquire()
+    .then((conn) => wCallback(null, conn))
+    .catch((err) => wCallback(err)),
   (connection, wCallback) => fill(connection, wCallback)
 ], (err) => {
   db.stop()
