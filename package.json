@@ -4,6 +4,7 @@
   "description": "Simple CRUD Example Server",
   "author": "Max Nachlinger",
   "scripts": {
+    "setup": "node ./localDev/setupDb.js",
     "start": "node app.js",
     "test": "./node_modules/.bin/standard && ./node_modules/.bin/tape 'tests/**/*.js'"
   },

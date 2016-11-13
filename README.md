@@ -6,16 +6,18 @@ First:
 ```
 npm i
 # set up the local leveldb
-node ./localDev/setupDb.js
+npm run setup
 ```
 
 Some fun commands:
 ```shell
+# starts API
 npm start
-npm test
 ```
-etc
 
+Links to try:
+
+http://localhost:8000/widget
 
 # TODO
 - add rate limiting
