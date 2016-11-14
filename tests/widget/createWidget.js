@@ -6,15 +6,22 @@ const createWidget = require('../../rest/widget/createWidget')
 
 test('Setup Db', (t) => testDb.setup(t.end))
 
-const call = module.exports = (cb) => {
-  return createWidget({body: {
-    name: 'test-widget name',
-    description: 'test-widget description',
-    metadata: {
-      created: new Date(),
-      updated: new Date()
+const call = module.exports = (widget, cb) => {
+  if (!cb) {
+    cb = widget
+    widget = null
+  }
+
+  return createWidget({
+    body: widget || {
+      name: 'test-widget name',
+      description: 'test-widget description',
+      metadata: {
+        created: new Date(),
+        updated: new Date()
+      }
     }
-  }}, testHelper.mockRes(cb), (err) => cb(err))
+  }, testHelper.mockRes(cb), (err) => cb(err))
 }
 
 test('Creates a widget', (t) => {
