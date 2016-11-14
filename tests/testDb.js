@@ -2,8 +2,8 @@
 const path = require('path')
 const proxyquire = require('proxyquire')
 
-const db = proxyquire('../data/db', {
-  '../config': {
+const db = proxyquire('../rest/helpers/db', {
+  '../../config': {
     db: {
       port: 3000,
       path: path.join(__dirname, '/.db')

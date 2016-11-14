@@ -6,7 +6,7 @@
   "scripts": {
     "setup": "node ./localDev/setupDb.js",
     "start": "node app.js",
-    "test": "./node_modules/.bin/standard && ./node_modules/.bin/tape 'tests/**/*.js'"
+    "test": "./node_modules/.bin/standard | snazzy && ./node_modules/.bin/tape 'tests/**/*.js'"
   },
   "dependencies": {
     "async": "^2.1.2",
@@ -31,6 +31,7 @@
     "proxyquire": "^1.7.10",
     "rimraf": "^2.5.3",
     "sinon": "^1.17.6",
+    "snazzy": "^5.0.0",
     "standard": "^8.4.0",
     "tape": "^4.6.0"
   },

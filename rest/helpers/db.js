@@ -1,6 +1,7 @@
 'use strict'
-const multilevel = require('multilevel')
 const net = require('net')
+const _ = require('lodash')
+const multilevel = require('multilevel')
 const level = require('level')
 const genericPool = require('generic-pool')
 const config = require('../../config')
@@ -34,8 +35,8 @@ function setupPool () {
 
   pool = genericPool.createPool(factory, opts)
 
-  module.exports.acquire = pool.acquire.bind(pool)
-  module.exports.release = pool.release.bind(pool)
+  module.exports.acquire = _.bind(pool.acquire, pool)
+  module.exports.release = _.bind(pool.release, pool)
 }
 
 module.exports.start = (callback) => {
